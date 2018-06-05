@@ -6,3 +6,6 @@ Bearbeitet durch:
 * Thomas Schäberle
 * Marcel Nowak
 * Steffen Walter
+
+Aufgabe: P4 
+Gruppe: G3
