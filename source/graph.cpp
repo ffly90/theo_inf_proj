@@ -1,7 +1,7 @@
 #include <iostream>
 #include "graph.hpp"
 
-Graph::Graph(std::vector<Edge> edges_,std::vector<char> nodes;):
+Graph::Graph(std::vector<Edge> edges_, std::vector<char> nodes_):
             _edges(edges_),_nodes(nodes_){}
 
 void Graph::pintedges(){
