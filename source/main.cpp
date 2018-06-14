@@ -11,6 +11,6 @@ int main()
 {
   std::vector<Edge> edges = {{'a','b'},{'b','c'},{'c','a'},{'c','b'},{'d','c'},{'e','f'},{'f','e'}};
   Graph graph(edges);
-  graph.pintgraph();
+  graph.pintedges();
   return 0;
 }
