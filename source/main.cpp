@@ -9,10 +9,10 @@ Projektarbeit von Sidney Kuyateh, Marcel Nowak, Thomas Schäberle und Steffen Wa
 /*initialize data*/
 int main()
 {
-  std::vector<char> nodes = {{'a'},{'b'},{'c'},{'c'},{'e'},{'f'}};
+  std::vector<char> vertex = {{'a'},{'b'},{'c'},{'d'},{'e'},{'f'}};
   std::vector<Edge> edges = {{'a','b'},{'b','c'},{'c','a'},{'c','b'},{'d','c'},{'e','f'},{'f','e'}};
-  Graph graph(edges,nodes);
-  graph.printnodes();
+  Graph graph(edges,vertex);
+  graph.printvertex();
   graph.printedges();
   return 0;
 }

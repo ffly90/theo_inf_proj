@@ -6,12 +6,12 @@
 
 class Graph{
 public:
-  Graph(std::vector<Edge> edges_, std::vector<char> nodes_);
-  void printnodes();
+  Graph(std::vector<Edge> edges_, std::vector<char> vertex_);
+  void printvertex();
   void printedges();
 private:
   std::vector<Edge> _edges;
-  std::vector<char> _nodes;
+  std::vector<char> _vertex;
 };
 
 #endif //GRAPH_HPP
