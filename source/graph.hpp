@@ -6,7 +6,7 @@
 
 class Graph{
 public:
-  Graph(std::vector<Edge> edges_, std::vector<char> vertex_);
+  Graph(std::vector<char> vertex_, std::vector<Edge> edges_);
   void printvertex();
   void printedges();
 private:

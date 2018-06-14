@@ -1,7 +1,7 @@
 #include <iostream>
 #include "graph.hpp"
 
-Graph::Graph(std::vector<Edge> edges_, std::vector<char> vertex_):
+Graph::Graph(std::vector<char> vertex_, std::vector<Edge> edges_):
             _edges(edges_),_vertex(vertex_){}
 
 void Graph::printedges(){
