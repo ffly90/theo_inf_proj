@@ -10,7 +10,7 @@ Projektarbeit von Sidney Kuyateh, Marcel Nowak, Thomas Schäberle und Steffen Wa
 int main()
 {
   std::vector<Edge> edges = {{'a','b'},{'b','c'},{'c','a'},{'c','b'},{'d','c'},{'e','f'},{'f','e'}};
-  Graph graph(edges);
+  Graph graph(edges,nodes);
   graph.pintedges();
   return 0;
 }
