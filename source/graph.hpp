@@ -7,7 +7,8 @@
 class Graph{
 public:
   Graph(std::vector<Edge> edges_, std::vector<char> nodes_);
-  void pintedges();
+  void printnodes();
+  void printedges();
 private:
   std::vector<Edge> _edges;
   std::vector<char> _nodes;
