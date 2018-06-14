@@ -10,7 +10,7 @@ Projektarbeit von Sidney Kuyateh, Marcel Nowak, Thomas Schäberle und Steffen Wa
 int main()
 {
   std::vector<char> vertex = {{'a'},{'b'},{'c'},{'d'},{'e'},{'f'}};
-  std::vector<Edge> edges = {{'a','b'},{'b','c'},{'c','a'},{'c','b'},{'d','c'},{'e','f'},{'f','e'}};
+  std::vector<Edge> edges = {{'a','b'},{'b','c'},{'c','a'},{'c','b'},{'d','c'},{'e','f'}};
   Graph graph(vertex,edges); //changed order
   graph.printvertex();
   graph.printedges();
