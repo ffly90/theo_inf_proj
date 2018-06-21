@@ -58,3 +58,4 @@ bin/*
 *.VC.opendb
 *.json
 *.sqlite
+/.vs/theo_inf_proj/v15
