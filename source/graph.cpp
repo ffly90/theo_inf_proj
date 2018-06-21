@@ -7,7 +7,7 @@ Projektarbeit von Sidney Kuyateh, Marcel Nowak, Thomas Schäberle und Steffen Wa
 Graph::Graph(std::vector<char> vertex_, std::vector<Edge> edges_) :
 	_edges(edges_), _vertex(vertex_)
 {
-	for each (Edge e in _edges)
+	for (Edge e : _edges)
 	{
 		_edgeAnalyzed.insert(_edgeAnalyzed.end(), std::make_pair(e, false));
 	}
@@ -17,14 +17,17 @@ std::vector<Edge> Graph::Edges()
 {
 	return _edges;
 }
+
 std::vector<char> Graph::Vertexes()
 {
 	return _vertex;
 }
+
 std::map<Edge, bool> Graph::EdgeAnalyzed()
 {
 	return _edgeAnalyzed;
 }
+
 void Graph::printedges()
 {
 	std::cout << "Edges: ";
@@ -34,6 +37,7 @@ void Graph::printedges()
 	}
 	std::cout << std::endl;
 }
+
 void Graph::printvertex()
 {
 	std::cout << "Vertex: (";
@@ -54,7 +58,7 @@ void Graph::printvertex()
 int Graph::GetEdgeCount(char vertex)
 {
 	int i = 0;
-	for each (Edge e in _edges)
+	for (Edge e : _edges)
 	{
 		if (e.x == vertex || e.y == vertex && !(e.x == e.y))
 		{
@@ -67,7 +71,7 @@ int Graph::GetEdgeCount(char vertex)
 std::vector<Edge> Graph::GetEdgesOfVertex(char vertex)
 {
 	std::vector<Edge> v_edges;
-	for each (Edge e in _edges)
+	for (Edge e : _edges)
 	{
 		if (e.x == vertex || e.y == vertex && !(e.x == e.y))
 		{
@@ -90,9 +94,9 @@ bool Graph::HasUnanalyzedEdges(char vertex)
 
 bool Graph::HasUnanalyzedEdges()
 {
-	for each (std::pair<Edge,bool> e in _edgeAnalyzed)
+	for (auto&&[first, second] : _edgeAnalyzed)
 	{
-		if (e.second == false)
+		if (second == false)
 			return true;
 	}
 	return false;

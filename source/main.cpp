@@ -18,8 +18,9 @@ int main()
 }
 
 void CalculateVertexes(const Graph &g) {
+	std::vector<char> vertexlist;
 	char max_vertex = 0, max_vertex_count = 0;
-	for each (char v in g.Vertexes())
+	for (char v : g.Vertexes())
 	{
 		if (g.GetEdgeCount(v) > max_vertex_count)
 		{
@@ -27,12 +28,13 @@ void CalculateVertexes(const Graph &g) {
 			max_vertex_count = g.GetEdgeCount(v);
 		}
 	}
-	std::vector<Edge> v_edges = g.GetEdgesOfVertex(max_vertex);
-	for each (Edge e in v_edges)
+	vertexlist.insert(vertexlist.end(), max_vertex);
+
+	for (Edge e : g.GetEdgesOfVertex(max_vertex))
 	{
 		g.EdgeAnalyzed[e] = true;
 	}
-	
+
 	while (g.HasUnanalyzedEdges())
 	{
 		// TODO: Assign the remaining Edges

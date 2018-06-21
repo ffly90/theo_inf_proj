@@ -6,8 +6,8 @@ Projektarbeit von Sidney Kuyateh, Marcel Nowak, Thomas Schäberle und Steffen Wa
 
 struct Edge
 {
-    char x;
-    char y;
+	char x;
+	char y;
 };
 
 #endif //EDGE_HPP
