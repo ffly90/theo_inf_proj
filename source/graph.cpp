@@ -89,7 +89,7 @@ std::vector<Edge> Graph::GetEdgesOfVertex(char vertex)
 
 bool Graph::HasUnanalyzedEdges(char vertex)
 {
-	for each (Edge e in GetEdgesOfVertex(vertex))
+	for (Edge e : GetEdgesOfVertex(vertex))
 	{
 		if (_edgeAnalyzed[e] == false)
 		{
