@@ -21,7 +21,7 @@ public:
 	std::vector<char> Vertexes();
 	std::map<Edge, bool, EdgeCompare> EdgeAnalyzed();
 	void printedges();
-	void Graph::SetEdgeAnalyzed(const Edge& e);
+	void SetEdgeAnalyzed(const Edge& e);
 private:
 	std::vector<Edge> _edges;
 	std::vector<char> _vertex;
