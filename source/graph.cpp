@@ -4,6 +4,11 @@ Projektarbeit von Sidney Kuyateh, Marcel Nowak, Thomas Schäberle und Steffen Wa
 #include <iostream>
 #include "graph.hpp"
 
+bool operator <(Edge a, Edge b)
+{
+	return false;
+}
+
 Graph::Graph(std::vector<char> vertex_, std::vector<Edge> edges_) :
 	_edges(edges_), _vertex(vertex_)
 {
@@ -66,6 +71,7 @@ int Graph::GetEdgeCount(char vertex)
 		}
 		return i;
 	}
+	return i;
 }
 
 std::vector<Edge> Graph::GetEdgesOfVertex(char vertex)
@@ -78,6 +84,7 @@ std::vector<Edge> Graph::GetEdgesOfVertex(char vertex)
 			v_edges.insert(v_edges.end(), e);
 		}
 	}
+	return v_edges;
 }
 
 bool Graph::HasUnanalyzedEdges(char vertex)
@@ -94,9 +101,9 @@ bool Graph::HasUnanalyzedEdges(char vertex)
 
 bool Graph::HasUnanalyzedEdges()
 {
-	for (auto&&[first, second] : _edgeAnalyzed)
+	for (std::pair<Edge,bool> e : _edgeAnalyzed)
 	{
-		if (second == false)
+		if (e.second == false)
 			return true;
 	}
 	return false;

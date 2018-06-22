@@ -27,4 +27,5 @@ private:
 	std::map<Edge, bool> _edgeAnalyzed;
 };
 
+bool operator <(Edge a, Edge b);
 #endif //GRAPH_HPP
