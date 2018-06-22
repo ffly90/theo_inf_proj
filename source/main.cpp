@@ -35,10 +35,10 @@ int main()
 	std::vector<Edge> edgesA = { { '1','2' },{ '2','4' },{ '4','3' },{ '4','6' },{ '3','6' },{ '3','5' },{ '6','5' },{ '6','7' } };
 
 	std::vector<char> vertexB = { { '0' },{ '1' },{ '2' },{ '3' },{ '4' },{ '5' },{ '6' },{ '7' },{ '8' },{ '9' },{ 'a' },{ 'b' },{ 'c' },{ 'd' },{ 'e' },{ 'f' },{ 'g' },{ 'h' },{ 'i' },{ 'j' },{ 'k' },{ 'l' },{ 'm' },{ 'n' },{ 'o' },{ 'p' },{ 'q' },{ 'r' },{ 's' },{ 't' },{ 'u' } };
-	std::vector<Edge> edgesB = { { '0','1' },{ '0','2' },{ '1','2' },{ '1','3' },{ '1','4' },{ '1','6' },{ '2','3' },{ '2','5' },{ '2','6' },{ '3','4' },{ '3','7' },{ '3','a' },{ '4','5' },{ '4','7' },{ '4','9' },{ '4','a' },{ '5','6' },{ '5','b' },{ '5','c' },{ '5','e' },{ '6','b' },{ '6','d' },{ '6','e' },{ '7','8' },{ '7','f' },{ '7','g' },{ '7','i' },{ '8','9' },{ '8','f' },{ '8','i' },{ '8','j' },{ '9','a' },{ '9','k' },{ '9','l' },{ '9','n' },{ 'a','b' },{ 'a','j' },{ 'a','l' },{ 'a','m' },{ 'b','c' },{ 'b','n' },{ 'b','o' },{ 'b','q' },{ 'c','d' },{ 'c','n' },{ 'c','p' },{ 'c','q' },{ 'd','e' },{ 'd','r' },{ 'd','s' },{ 'd','u' },{ 'e','r' },{ 'e','t' },{ 'e','u' },{ 'f','g' },{ 'g','h' },{ 'h','i' },{ 'i','j' },{ 'j','k' },{ 'k','l' },{ 'l','m' },{ 'm','n' },{ 'n','o' },{ 'o','p' },{ 'p','q' },{ 'q','r' },{ 'r','s' },{ 's','t' },{ 't','u' } };
+	std::vector<Edge> edgesB = { { '0','1' },{ '0','2' },{ '1','2' },{ '1','3' },{ '1','4' },{ '1','6' },{ '2','3' },{ '2','5' },{ '2','6' },{ '3','4' },{ '3','7' },{ '3','8' },{ '3','a' },{ '4','5' },{ '4','7' },{ '4','9' },{ '4','a' },{ '5','6' },{ '5','b' },{ '5','c' },{ '5','e' },{ '6','b' },{ '6','d' },{ '6','e' },{ '7','8' },{ '7','f' },{ '7','g' },{ '7','i' },{ '8','9' },{ '8','f' },{ '8','i' },{ '8','j' },{ '9','a' },{ '9','k' },{ '9','l' },{ '9','n' },{ 'a','b' },{ 'a','j' },{ 'a','l' },{ 'a','m' },{ 'b','c' },{ 'b','n' },{ 'b','o' },{ 'b','q' },{ 'c','d' },{ 'c','n' },{ 'c','p' },{ 'c','q' },{ 'd','e' },{ 'd','r' },{ 'd','s' },{ 'd','u' },{ 'e','r' },{ 'e','t' },{ 'e','u' },{ 'f','g' },{ 'g','h' },{ 'h','i' },{ 'i','j' },{ 'j','k' },{ 'k','l' },{ 'l','m' },{ 'm','n' },{ 'n','o' },{ 'o','p' },{ 'p','q' },{ 'q','r' },{ 'r','s' },{ 's','t' },{ 't','u' } };
 
 
-	Graph graph(vertexA, edgesA); //changed order
+	Graph graph(vertexB, edgesB); //changed order
 	graph.printvertex();
 	graph.printedges();
 	CalculateVertexes(graph);
@@ -48,38 +48,36 @@ int main()
 void CalculateVertexes(Graph g)
 {
 	std::vector<char> vertexlist;
-	char max_vertex = 0, max_vertex_count = 0;
-	for (char v : g.Vertexes())
-	{
-		if (g.GetEdgeCount(v) > max_vertex_count)
-		{
-			max_vertex = v;
-			max_vertex_count = g.GetEdgeCount(v);
-		}
-	}
-	vertexlist.insert(vertexlist.end(), max_vertex);
 
-	std::cout << "Analyze Vertex: " << max_vertex << std::endl;
-	for (Edge e : g.GetEdgesOfVertex(max_vertex))
+	while (g.HasUnanalyzedEdges())
 	{
-		std::cout << "Edge: (" << e.x << "," << e.y << "," << g.EdgeAnalyzed()[e] << ") of Vertex " << max_vertex << std::endl;
-		if (g.EdgeAnalyzed()[e] != true)
+		char max_vertex = 0, max_vertex_count = 0;
+		for (char v : g.Vertexes())
 		{
-			std::cout << "Analyze Edge: (" << e.x << "," << e.y << ") of Vertex " << max_vertex << std::endl;
-			g.SetEdgeAnalyzed(e);
-			AnalyzeEdgesOfVertex(g, GetOtherVertexOfEdge(e, max_vertex), vertexlist);
+			if (g.GetEdgeCount(v) > max_vertex_count && !(ListContains<char>(vertexlist, v)) && g.HasUnanalyzedEdges(v))
+			{
+				max_vertex = v;
+				max_vertex_count = g.GetEdgeCount(v);
+			}
 		}
+
+		std::cout << "Analyze Vertex: " << max_vertex << std::endl;
+		for (Edge e : g.GetEdgesOfVertex(max_vertex))
+		{
+			std::cout << "Edge: (" << e.x << "," << e.y << "," << g.EdgeAnalyzed()[e] << ") of Vertex " << max_vertex << std::endl;
+			if (g.EdgeAnalyzed()[e] != true)
+			{
+				if (!(ListContains<char>(vertexlist, max_vertex)))
+				{
+					vertexlist.insert(vertexlist.end(), max_vertex);
+				}
+				std::cout << "Analyze Edge: (" << e.x << "," << e.y << ") of Vertex " << max_vertex << std::endl;
+				g.SetEdgeAnalyzed(e);
+				AnalyzeEdgesOfVertex(g, GetOtherVertexOfEdge(e, max_vertex), vertexlist);
+			}
+		}
+		PrintVertexList(vertexlist);
 	}
-	//while (g.HasUnanalyzedEdges())
-	//{
-	//	for (char v : g.Vertexes())
-	//	{
-	//		if (!ListContains<char>(vertexlist, v))
-	//		{
-	//			AnalyzeEdgesOfVertex(g, v, vertexlist);
-	//		}
-	//	}
-	//}
 	PrintVertexList(vertexlist);
 	g.printedges();
 }
@@ -92,7 +90,7 @@ void AnalyzeEdgesOfVertex(Graph& g, char v, std::vector<char>& vertexlist)
 		std::cout << "Edge: (" << e.x << "," << e.y << "," << g.EdgeAnalyzed()[e] << ") of Vertex " << v << std::endl;
 		if (g.EdgeAnalyzed()[e] == true)
 		{
-			return;
+			break;
 		}
 		std::cout << "Analyze Edge: (" << e.x << "," << e.y << ") of Vertex " << v << std::endl;
 		g.SetEdgeAnalyzed(e);
