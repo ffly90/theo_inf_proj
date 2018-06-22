@@ -19,13 +19,12 @@ public:
 	bool HasUnanalyzedEdges();
 	std::vector<Edge> Edges();
 	std::vector<char> Vertexes();
-	std::map<Edge, bool> EdgeAnalyzed();
+	std::map<Edge, bool, EdgeCompare> EdgeAnalyzed();
 	void printedges();
+	void Graph::SetEdgeAnalyzed(const Edge& e);
 private:
 	std::vector<Edge> _edges;
 	std::vector<char> _vertex;
-	std::map<Edge, bool> _edgeAnalyzed;
+	std::map<Edge, bool, EdgeCompare> _edgeAnalyzed;
 };
-
-bool operator <(Edge a, Edge b);
 #endif //GRAPH_HPP

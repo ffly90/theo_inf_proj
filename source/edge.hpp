@@ -10,4 +10,12 @@ struct Edge
 	char y;
 };
 
+struct EdgeCompare
+{
+	bool operator() (const Edge& a, const Edge& b) const
+	{
+		return (a.x < b.x) || (a.x == b.x && a.y < b.y);
+	}
+};
+
 #endif //EDGE_HPP

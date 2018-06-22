@@ -4,17 +4,12 @@ Projektarbeit von Sidney Kuyateh, Marcel Nowak, Thomas Schäberle und Steffen Wa
 #include <iostream>
 #include "graph.hpp"
 
-bool operator <(Edge a, Edge b)
-{
-	return false;
-}
-
 Graph::Graph(std::vector<char> vertex_, std::vector<Edge> edges_) :
 	_edges(edges_), _vertex(vertex_)
 {
-	for (Edge e : _edges)
+	for (Edge e : edges_)
 	{
-		_edgeAnalyzed.insert(_edgeAnalyzed.end(), std::make_pair(e, false));
+		_edgeAnalyzed.emplace(e, 0);
 	}
 }
 
@@ -28,7 +23,7 @@ std::vector<char> Graph::Vertexes()
 	return _vertex;
 }
 
-std::map<Edge, bool> Graph::EdgeAnalyzed()
+std::map<Edge, bool, EdgeCompare> Graph::EdgeAnalyzed()
 {
 	return _edgeAnalyzed;
 }
@@ -36,9 +31,9 @@ std::map<Edge, bool> Graph::EdgeAnalyzed()
 void Graph::printedges()
 {
 	std::cout << "Edges: ";
-	for (unsigned int i = 0; i < _edges.size(); i++)
+	for (auto& e : _edgeAnalyzed)
 	{
-		std::cout << "(" << _edges[i].x << "," << _edges[i].y << ")" << " ";
+		std::cout << "(" << e.first.x << "," << e.first.y << "," << e.second << ")" << " ";
 	}
 	std::cout << std::endl;
 }
@@ -69,7 +64,6 @@ int Graph::GetEdgeCount(char vertex)
 		{
 			i++;
 		}
-		return i;
 	}
 	return i;
 }
@@ -77,11 +71,11 @@ int Graph::GetEdgeCount(char vertex)
 std::vector<Edge> Graph::GetEdgesOfVertex(char vertex)
 {
 	std::vector<Edge> v_edges;
-	for (Edge e : _edges)
+	for (auto& e : _edgeAnalyzed)
 	{
-		if (e.x == vertex || e.y == vertex && !(e.x == e.y))
+		if (e.first.x == vertex || e.first.y == vertex)
 		{
-			v_edges.insert(v_edges.end(), e);
+			v_edges.insert(v_edges.end(), e.first);
 		}
 	}
 	return v_edges;
@@ -107,4 +101,9 @@ bool Graph::HasUnanalyzedEdges()
 			return true;
 	}
 	return false;
+}
+
+void Graph::SetEdgeAnalyzed(const Edge & e)
+{
+	_edgeAnalyzed[e] = true;
 }
