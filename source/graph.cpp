@@ -4,7 +4,7 @@ Projektarbeit von Sidney Kuyateh, Marcel Nowak, Thomas Schäberle und Steffen Wa
 #include <iostream>
 #include "graph.hpp"
 
-Graph::Graph(std::vector<char> vertex_, std::vector<Edge> edges_) :
+Graph::Graph(std::vector<int> vertex_, std::vector<Edge> edges_) :
 	_edges(edges_), _vertex(vertex_)
 {
 	for (Edge e : edges_)
@@ -18,7 +18,7 @@ std::vector<Edge> Graph::Edges()
 	return _edges;
 }
 
-std::vector<char> Graph::Vertexes()
+std::vector<int> Graph::Vertexes()
 {
 	return _vertex;
 }
@@ -55,7 +55,7 @@ void Graph::printvertex()
 }
 
 /// Gets count of Edges at a vertex
-int Graph::GetEdgeCount(char vertex)
+int Graph::GetEdgeCount(int vertex)
 {
 	int i = 0;
 	for (Edge e : _edges)
@@ -68,7 +68,7 @@ int Graph::GetEdgeCount(char vertex)
 	return i;
 }
 
-std::vector<Edge> Graph::GetEdgesOfVertex(char vertex)
+std::vector<Edge> Graph::GetEdgesOfVertex(int vertex)
 {
 	std::vector<Edge> v_edges;
 	for (auto& e : _edgeAnalyzed)
@@ -81,7 +81,7 @@ std::vector<Edge> Graph::GetEdgesOfVertex(char vertex)
 	return v_edges;
 }
 
-bool Graph::HasUnanalyzedEdges(char vertex)
+bool Graph::HasUnanalyzedEdges(int vertex)
 {
 	for (Edge e : GetEdgesOfVertex(vertex))
 	{
