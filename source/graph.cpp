@@ -60,7 +60,7 @@ int Graph::GetEdgeCount(char vertex)
 	int i = 0;
 	for (Edge e : _edges)
 	{
-		if (e.x == vertex || e.y == vertex && !(e.x == e.y))
+		if ((e.x == vertex || e.y == vertex) && !(e.x == e.y))
 		{
 			i++;
 		}
