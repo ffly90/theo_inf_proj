@@ -8,9 +8,7 @@ Projektarbeit von Sidney Kuyateh, Marcel Nowak, Thomas Schäberle und Steffen Wa
 #define ERROR -1
 //#define DEBUG
 
-char GetOtherVertexOfEdge(const Edge& e, int v);
 void CalculateVertexes(Graph g);
-void AnalyzeEdgesOfVertex(Graph& g, int v, std::vector<int>& vertexlist);
 void PrintVertexList(std::vector<int> vertexlist);
 
 template <class T>
@@ -29,6 +27,7 @@ bool ListContains(std::vector<T> list, T item)
 /*initialize data*/
 int main()
 {
+	std::cout << "Projektarbeit Theoretische Informatik Version " << version << " von " << authors << std::endl;
 	std::vector<int> vertexA = { { 1 },{ 2 },{ 3 },{ 4 },{ 5 },{ 6 },{ 7 } };
 	std::vector<Edge> edgesA = { { 1,2 },{ 2,4 },{ 4,3 },{ 4,6 },{ 3,6 },{ 3,5 },{ 6,5 },{ 6,7 } };
 
@@ -49,7 +48,7 @@ void CalculateVertexes(Graph g)
 {
 	std::vector<int> vertexlist;
 
-	while (g.HasUnanalyzedEdges())
+	while (true)
 	{
 		int max_vertex = 0, max_vertex_count = 0;
 		for (int v : g.Vertexes())
@@ -60,7 +59,6 @@ void CalculateVertexes(Graph g)
 				max_vertex_count = g.GetEdgeCount(v);
 			}
 		}
-
 		if (max_vertex == 0)
 		{
 			break;
@@ -83,7 +81,6 @@ void CalculateVertexes(Graph g)
 				std::cout << "Analyze Edge: (" << e.x << "," << e.y << ") of Vertex " << max_vertex << std::endl;
 #endif // DEBUG
 				g.SetEdgeAnalyzed(e);
-				AnalyzeEdgesOfVertex(g, GetOtherVertexOfEdge(e, max_vertex), vertexlist);
 			}
 		}
 #ifdef DEBUG
@@ -95,51 +92,6 @@ void CalculateVertexes(Graph g)
 	g.printedges();
 #endif // DEBUG
 
-}
-
-void AnalyzeEdgesOfVertex(Graph& g, int v, std::vector<int>& vertexlist)
-{
-#ifdef DEBUG
-	std::cout << "Analyze Vertex: " << v << std::endl;
-#endif // DEBUG
-	for (Edge e : g.GetEdgesOfVertex(v))
-	{
-#ifdef DEBUG
-		std::cout << "Edge: (" << e.x << "," << e.y << "," << g.EdgeAnalyzed()[e] << ") of Vertex " << v << std::endl;
-#endif // DEBUG
-		if (g.EdgeAnalyzed()[e] == true)
-		{
-			break;
-		}
-#ifdef DEBUG
-		std::cout << "Analyze Edge: (" << e.x << "," << e.y << ") of Vertex " << v << std::endl;
-#endif // DEBUG
-		g.SetEdgeAnalyzed(e);
-		if (!ListContains<int>(vertexlist, v))
-		{
-			vertexlist.insert(vertexlist.end(), v);
-		}
-		if (GetOtherVertexOfEdge(e, v) != ERROR && !ListContains<int>(vertexlist, GetOtherVertexOfEdge(e, v)))
-		{
-			AnalyzeEdgesOfVertex(g, GetOtherVertexOfEdge(e, v), vertexlist);
-		}
-	}
-}
-
-char GetOtherVertexOfEdge(const Edge& e, int v)
-{
-	if (e.x == v)
-	{
-		return e.y;
-	}
-	else if (e.y == v)
-	{
-		return e.x;
-	}
-	else
-	{
-		return ERROR;
-	}
 }
 
 void PrintVertexList(std::vector<int> vertexlist)

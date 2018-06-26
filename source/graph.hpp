@@ -16,8 +16,6 @@ public:
 	int GetEdgeCount(int vertex);
 	std::vector<Edge> GetEdgesOfVertex(int vertex);
 	bool HasUnanalyzedEdges(int vertex);
-	bool HasUnanalyzedEdges();
-	std::vector<Edge> Edges();
 	std::vector<int> Vertexes();
 	std::map<Edge, bool, EdgeCompare> EdgeAnalyzed();
 	void printedges();

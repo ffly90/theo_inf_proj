@@ -13,11 +13,6 @@ Graph::Graph(std::vector<int> vertex_, std::vector<Edge> edges_) :
 	}
 }
 
-std::vector<Edge> Graph::Edges()
-{
-	return _edges;
-}
-
 std::vector<int> Graph::Vertexes()
 {
 	return _vertex;
@@ -89,16 +84,6 @@ bool Graph::HasUnanalyzedEdges(int vertex)
 		{
 			return true;
 		}
-	}
-	return false;
-}
-
-bool Graph::HasUnanalyzedEdges()
-{
-	for (std::pair<Edge,bool> e : _edgeAnalyzed)
-	{
-		if (e.second == false)
-			return true;
 	}
 	return false;
 }
