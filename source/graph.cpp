@@ -3,6 +3,7 @@ Projektarbeit von Sidney Kuyateh, Marcel Nowak, Thomas Schäberle und Steffen Wa
 */
 #include <iostream>
 #include "graph.hpp"
+#include <algorithm>	
 
 Graph::Graph(std::vector<int> vertex_, std::vector<Edge> edges_) :
 	_edges(edges_), _vertex(vertex_)
@@ -31,6 +32,11 @@ void Graph::printedges()
 		std::cout << "(" << e.first.x << "," << e.first.y << "," << e.second << ")" << " ";
 	}
 	std::cout << std::endl;
+}
+
+void Graph::SortVertexesByDegree()
+{
+	std::sort(_vertex.begin(), _vertex.end(), [this](int a, int b) {return (this->GetEdgeCount(a) > this->GetEdgeCount(b)); });
 }
 
 void Graph::printvertex()

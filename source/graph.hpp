@@ -19,6 +19,7 @@ public:
 	std::vector<int> Vertexes();
 	std::map<Edge, bool, EdgeCompare> EdgeAnalyzed();
 	void printedges();
+	void SortVertexesByDegree();
 	void SetEdgeAnalyzed(const Edge& e);
 private:
 	std::vector<Edge> _edges;
