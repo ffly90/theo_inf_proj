@@ -62,7 +62,14 @@ void Graph::PrintVertexList()
 template <class T>
 bool Graph::ListContains(std::vector<T> list, T item)
 {
-  std::find(list.begin(), list.end(), item); //Complexity: O(n)
+    for (T listitem : list)
+    {
+        if (listitem == item)
+        {
+            return true;
+        }
+    }
+    return false;
 }
 
 std::vector<int> Graph::Vertexes()
