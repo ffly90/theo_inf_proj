@@ -57,17 +57,12 @@ void Graph::PrintVertexList()
     std::cout << ")" << std::endl;
 }
 
+/*Definition of the function that runs a check whether or not an element
+	(e.g. a vertex) of a given array is identicat to a given value*/
 template <class T>
 bool Graph::ListContains(std::vector<T> list, T item)
 {
-    for (T listitem : list)
-    {
-        if (listitem == item)
-        {
-            return true;
-        }
-    }
-    return false;
+  std::find(list.begin(), list.end(), item); //Complexity: O(n)
 }
 
 std::vector<int> Graph::Vertexes()
