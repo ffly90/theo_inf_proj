@@ -22,7 +22,7 @@ int main()
 
     /*Calculate vertexes needed to reach all given vertexes (for example A)*/
     graphA.CalculateVertexes();
-    /*Print the claculated list of vertexes*/
+    /*Print the calculated list of vertexes*/
     graphA.PrintVertexList();
     /*Calculate vertexes needed to reach all given vertexes (for example B)*/
     graphB.CalculateVertexes();
