@@ -6,6 +6,8 @@ Projektarbeit von Sidney Kuyateh, Marcel Nowak, Thomas Schäberle und Steffen Wa
 #include <algorithm>
 #include <string>
 
+
+/*Definition of the constructor of the class Graph*/
 Graph::Graph(std::vector<int> vertex_, std::vector<Edge> edges_) :
     _edges(edges_), _vertex(vertex_)
 {
@@ -14,7 +16,9 @@ Graph::Graph(std::vector<int> vertex_, std::vector<Edge> edges_) :
         _edgeAnalyzed.emplace(e, 0);
     }
 }
-
+/*Definition of the function that calculates the list of needed vertexes.
+	In this case by sorting the list of vertexes by their degree and then
+	analizing the vertexes from the beginning using the greedy algorithm*/
 void Graph::CalculateVertexes()
 {
     this->SortVertexesByDegree(); // Complexity: O(n * log(n))
@@ -25,7 +29,7 @@ void Graph::CalculateVertexes()
         {
             if (this->EdgeAnalyzed()[e] != true)
             {
-                if (!(ListContains<int>(_vertexlist, v)))
+                if (!(ListContains(_vertexlist, v)))
                 {
                     _vertexlist.insert(_vertexlist.end(), v);
                 }
@@ -35,6 +39,9 @@ void Graph::CalculateVertexes()
     }
 }
 
+/*Defition of the funtion that prints the fields of a vector to standard out.
+	In this case to print the content of the variable that holds the result of
+	the funtion Graph::CalculateVertexes*/
 void Graph::PrintVertexList()
 {
     std::cout << "List of Vertexes: (";
@@ -50,10 +57,12 @@ void Graph::PrintVertexList()
     std::cout << ")" << std::endl;
 }
 
-template <class T>
-bool Graph::ListContains(std::vector<T> list, T item)
+/*Definition of the function that runs a check whether or not an element
+	(e.g. a vertex) of a given array is identicat to a given value*/
+
+bool Graph::ListContains(std::vector<int> list, int item)
 {
-    for (T listitem : list)
+    for (int listitem : list)
     {
         if (listitem == item)
         {

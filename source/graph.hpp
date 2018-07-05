@@ -14,8 +14,7 @@ public:
     Graph(std::vector<int> vertex_, std::vector<Edge> edges_);
     void CalculateVertexes();
     void PrintVertexList();
-    template <class T>
-    bool ListContains(std::vector<T>, T);
+    bool ListContains(std::vector<int>, int);
     void printvertex();
     int GetEdgeCount(int vertex);
     std::vector<Edge> GetEdgesOfVertex(int vertex);
