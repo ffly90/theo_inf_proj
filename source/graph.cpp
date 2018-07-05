@@ -29,7 +29,7 @@ void Graph::CalculateVertexes()
         {
             if (this->EdgeAnalyzed()[e] != true)
             {
-                if (!(ListContains<int>(_vertexlist, v)))
+                if (!(ListContains(_vertexlist, v)))
                 {
                     _vertexlist.insert(_vertexlist.end(), v);
                 }
@@ -59,10 +59,10 @@ void Graph::PrintVertexList()
 
 /*Definition of the function that runs a check whether or not an element
 	(e.g. a vertex) of a given array is identicat to a given value*/
-template <class T>
-bool Graph::ListContains(std::vector<T> list, T item)
+
+bool Graph::ListContains(std::vector<int> list, int item)
 {
-    for (T listitem : list)
+    for (int listitem : list)
     {
         if (listitem == item)
         {
