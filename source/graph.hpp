@@ -12,6 +12,10 @@ class Graph
 {
 public:
 	Graph(std::vector<int> vertex_, std::vector<Edge> edges_);
+	void CalculateVertexes();
+	void PrintVertexList();
+	template <class T>
+	bool ListContains(std::vector<T>, T);
 	void printvertex();
 	int GetEdgeCount(int vertex);
 	std::vector<Edge> GetEdgesOfVertex(int vertex);
@@ -24,6 +28,7 @@ public:
 private:
 	std::vector<Edge> _edges;
 	std::vector<int> _vertex;
+	std::vector<int> _vertexlist;
 	std::map<Edge, bool, EdgeCompare> _edgeAnalyzed;
 };
 #endif //GRAPH_HPP

@@ -8,22 +8,6 @@ Projektarbeit von Sidney Kuyateh, Marcel Nowak, Thomas Schäberle und Steffen Wa
 #include "graph.hpp"
 #define ERROR -1
 
-void CalculateVertexes(Graph g);
-void PrintVertexList(std::vector<int> vertexlist);
-
-template <class T>
-bool ListContains(std::vector<T> list, T item)
-{
-	for (T listitem : list)
-	{
-		if (listitem == item)
-		{
-			return true;
-		}
-	}
-	return false;
-}
-
 /*initialize data*/
 int main()
 {
@@ -40,45 +24,10 @@ int main()
 	graph.printvertex();
 	graph.printedges();
 #endif // DEBUG
-	CalculateVertexes(graphA);
-	CalculateVertexes(graphB);
+	graphA.CalculateVertexes();
+  graphA.PrintVertexList();
+	graphB.CalculateVertexes();
+  graphB.PrintVertexList();
+
 	return 0;
-}
-
-void CalculateVertexes(Graph g)
-{
-	std::vector<int> vertexlist;
-	g.SortVertexesByDegree(); // Complexity: O(n * log(n))
-	g.printvertex();
-	for (int v : g.Vertexes())
-	{
-		for (Edge e : g.GetEdgesOfVertex(v))
-		{
-			if (g.EdgeAnalyzed()[e] != true)
-			{
-				if (!(ListContains<int>(vertexlist, v)))
-				{
-					vertexlist.insert(vertexlist.end(), v);
-				}
-				g.SetEdgeAnalyzed(e);
-			}
-		}
-	}
-	PrintVertexList(vertexlist);
-
-}
-
-void PrintVertexList(std::vector<int> vertexlist)
-{
-	std::cout << "List of Vertexes: (";
-	for (unsigned int i = 0; i < vertexlist.size(); i++)
-	{
-		std::cout << vertexlist[i];
-		if (i == vertexlist.size() - 1)
-		{
-			break;
-		}
-		std::cout << ", ";
-	}
-	std::cout << ")" << std::endl;
 }

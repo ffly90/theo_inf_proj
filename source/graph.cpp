@@ -3,7 +3,8 @@ Projektarbeit von Sidney Kuyateh, Marcel Nowak, Thomas Schäberle und Steffen Wa
 */
 #include <iostream>
 #include "graph.hpp"
-#include <algorithm>	
+#include <algorithm>
+#include <string>
 
 Graph::Graph(std::vector<int> vertex_, std::vector<Edge> edges_) :
 	_edges(edges_), _vertex(vertex_)
@@ -12,6 +13,54 @@ Graph::Graph(std::vector<int> vertex_, std::vector<Edge> edges_) :
 	{
 		_edgeAnalyzed.emplace(e, 0);
 	}
+}
+
+void Graph::CalculateVertexes()
+{
+	this->SortVertexesByDegree(); // Complexity: O(n * log(n))
+	this->printvertex();
+	for (int v : this->Vertexes())
+	{
+		for (Edge e : this->GetEdgesOfVertex(v))
+		{
+			if (this->EdgeAnalyzed()[e] != true)
+			{
+				if (!(ListContains<int>(_vertexlist, v)))
+				{
+					_vertexlist.insert(_vertexlist.end(), v);
+				}
+				this->SetEdgeAnalyzed(e);
+			}
+		}
+	}
+}
+
+void Graph::PrintVertexList()
+{
+	std::cout << "List of Vertexes: (";
+	for (unsigned int i = 0; i < _vertexlist.size(); i++)
+	{
+		std::cout << _vertexlist[i];
+		if (i == _vertexlist.size() - 1)
+		{
+			break;
+		}
+		std::cout << ", ";
+	}
+	std::cout << ")" << std::endl;
+}
+
+template <class T>
+bool Graph::ListContains(std::vector<T> list, T item)
+{
+	for (T listitem : list)
+	{
+		if (listitem == item)
+		{
+			return true;
+		}
+	}
+	return false;
 }
 
 std::vector<int> Graph::Vertexes()
