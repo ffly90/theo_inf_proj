@@ -6,16 +6,16 @@ Projektarbeit von Sidney Kuyateh, Marcel Nowak, Thomas Schäberle und Steffen Wa
 
 struct Edge
 {
-	int x;
-	int y;
+    int x;
+    int y;
 };
 
 struct EdgeCompare
 {
-	bool operator() (const Edge& a, const Edge& b) const
-	{
-		return (a.x < b.x) || (a.x == b.x && a.y < b.y);
-	}
+    bool operator() (const Edge& a, const Edge& b) const
+    {
+        return (a.x < b.x) || (a.x == b.x && a.y < b.y);
+    }
 };
 
 #endif //EDGE_HPP
