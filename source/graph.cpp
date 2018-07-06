@@ -22,22 +22,23 @@ Graph::Graph(std::vector<int> vertex_, std::vector<Edge> edges_) :
 	analizing the vertexes from the beginning using the greedy algorithm*/
 void Graph::CalculateVertexes()
 {
-    this->SortVertexesByDegree(); // Complexity: O(n * log(n))
-    this->printvertex();
-    for (int v : this->Vertexes())
+    this->SortVertexesByDegree(); // Complexity: O(v * log(v))
+    this->printvertex(); // Complexity: O(v)
+    for (int v : this->Vertexes()) // O(v)
     {
-        for (Edge e : this->GetEdgesOfVertex(v))
+        for (Edge e : this->GetEdgesOfVertex(v)) // O(e)
         {
-            if (this->EdgeAnalyzed()[e] != true)
+            if (this->EdgeAnalyzed()[e] != true) // O(log(e))
             {
-                if (!(ListContains(_vertexlist, v)))
+                if (!(ListContains(_vertexlist, v))) // O(v)
                 {
-                    _vertexlist.insert(_vertexlist.end(), v);
+                    _vertexlist.insert(_vertexlist.end(), v); // O(1)
                 }
-                this->SetEdgeAnalyzed(e);
+                this->SetEdgeAnalyzed(e); // O(log(e))
             }
         }
-    }
+    } // O(v * log(v)) + O(v) + (O(v) * O(e) * O(log(e)) * (O(v) + O(log(e))))
+	// O(v * e * log(e) * (v + log(e))
 }
 
 //Defition of the funtion that prints the fields of a vector to standard out.
@@ -162,7 +163,7 @@ bool Graph::HasUnanalyzedEdges(int vertex)
     return false;
 }
 
-//Sets a edge as analyzed. Complexity: O(1)
+//Sets a edge as analyzed. Complexity: O(log(e))
 void Graph::SetEdgeAnalyzed(const Edge & e)
 {
     _edgeAnalyzed[e] = true;
