@@ -89,7 +89,7 @@ std::map<Edge, bool, EdgeCompare> Graph::EdgeAnalyzed()
 void Graph::printedges()
 {
     std::cout << "Edges: ";
-    for (std::pair<Edge, bool>& e : _edgeAnalyzed)
+    for (std::pair<Edge, bool> e : _edgeAnalyzed)
     {
         std::cout << "(" << e.first.x << "," << e.first.y << "," << e.second << ")" << " ";
     }
@@ -140,7 +140,7 @@ int Graph::GetEdgeCount(int vertex)
 std::vector<Edge> Graph::GetEdgesOfVertex(int vertex)
 {
     std::vector<Edge> v_edges;
-    for (std::pair<Edge, bool>& e : _edgeAnalyzed)
+    for (std::pair<Edge, bool> e : _edgeAnalyzed)
     {
         if (e.first.x == vertex || e.first.y == vertex)
         {
@@ -153,9 +153,9 @@ std::vector<Edge> Graph::GetEdgesOfVertex(int vertex)
 // Checks, if a vertex has unanalyzed edges. Complexity: O(e)
 bool Graph::HasUnanalyzedEdges(int vertex)
 {
-    for (std::pair<Edge, bool>& e : _edgeAnalyzed)
+    for (std::pair<Edge, bool> e : _edgeAnalyzed)
     {
-        if ((e.first.x == vertex || e.first.y == vertex) && _edgeAnalyzed[e] == false)
+        if ((e.first.x == vertex || e.first.y == vertex) && e.second == false)
         {
             return true;
         }
