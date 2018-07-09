@@ -17,8 +17,11 @@ public:
     bool ListContains(std::vector<int>, int);
     void printvertex();
     int GetEdgeCount(int vertex);
+	int GetUnanalyzedEdgeCount(int vertex);
     std::vector<Edge> GetEdgesOfVertex(int vertex);
+	std::vector<Edge> GetUnanalyzedEdgesOfVertex(int vertex);
     bool HasUnanalyzedEdges(int vertex);
+	bool HasUnanalyzedEdges();
     std::vector<int> Vertexes();
     std::map<Edge, bool, EdgeCompare> EdgeAnalyzed();
     void printedges();

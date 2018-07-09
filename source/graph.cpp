@@ -24,19 +24,21 @@ void Graph::CalculateVertexes()
 {
     this->SortVertexesByDegree(); // Complexity: O(v * log(v))
     this->printvertex(); // Complexity: O(v)
-    for (int v : this->Vertexes()) // O(v)
+    while (HasUnanalyzedEdges()) // O(v)
     {
-        for (Edge e : this->GetEdgesOfVertex(v)) // O(e)
+		this->SortVertexesByDegree();
+        for (Edge e : this->GetEdgesOfVertex(_vertex[0])) // O(e)
         {
             if (this->EdgeAnalyzed()[e] != true) // O(log(e))
             {
-                if (!(ListContains(_vertexlist, v))) // O(v)
+                if (!(ListContains(_vertexlist, _vertex[0]))) // O(v)
                 {
-                    _vertexlist.insert(_vertexlist.end(), v); // O(1)
+                    _vertexlist.insert(_vertexlist.end(), _vertex[0]); // O(1)
                 }
                 this->SetEdgeAnalyzed(e); // O(log(e))
             }
         }
+		_vertex.erase(_vertex.begin());
     } // O(v * log(v)) + O(v) + (O(v) * O(e) * O(log(e)) * (O(v) + O(log(e))))
 	// O(v * e * log(e) * (v + log(e))
 }
@@ -101,7 +103,7 @@ void Graph::SortVertexesByDegree()
 {
     std::sort(_vertex.begin(), _vertex.end(), [this](int a, int b)
     {
-        return (this->GetEdgeCount(a) > this->GetEdgeCount(b));
+        return (this->GetUnanalyzedEdgeCount(a) > this->GetUnanalyzedEdgeCount(b));
     });
 }
 
@@ -136,6 +138,19 @@ int Graph::GetEdgeCount(int vertex)
     return i;
 }
 
+int Graph::GetUnanalyzedEdgeCount(int vertex)
+{
+	int i = 0;
+	for (Edge e : _edges)
+	{
+		if ((e.x == vertex || e.y == vertex) && !(e.x == e.y) && _edgeAnalyzed[e] != true)
+		{
+			i++;
+		}
+	}
+	return i;
+}
+
 // Get all Edges of a vertex. Complexity: O(e)
 std::vector<Edge> Graph::GetEdgesOfVertex(int vertex)
 {
@@ -150,6 +165,19 @@ std::vector<Edge> Graph::GetEdgesOfVertex(int vertex)
     return v_edges;
 }
 
+std::vector<Edge> Graph::GetUnanalyzedEdgesOfVertex(int vertex)
+{
+	std::vector<Edge> v_edges;
+	for (std::pair<Edge, bool> e : _edgeAnalyzed)
+	{
+		if ((e.first.x == vertex || e.first.y == vertex) && e.second == true)
+		{
+			v_edges.insert(v_edges.end(), e.first);
+		}
+	}
+	return v_edges;
+}
+
 // Checks, if a vertex has unanalyzed edges. Complexity: O(e)
 bool Graph::HasUnanalyzedEdges(int vertex)
 {
@@ -161,6 +189,18 @@ bool Graph::HasUnanalyzedEdges(int vertex)
         }
     }
     return false;
+}
+
+bool Graph::HasUnanalyzedEdges()
+{
+	for (std::pair<Edge, bool> e : _edgeAnalyzed)
+	{
+		if (e.second == false)
+		{
+			return true;
+		}
+	}
+	return false;
 }
 
 //Sets a edge as analyzed. Complexity: O(log(e))
