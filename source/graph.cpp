@@ -24,10 +24,16 @@ void Graph::CalculateVertexes()
 {
     this->SortVertexesByDegree(); // Complexity: O(v * log(v))
     this->printvertex(); // Complexity: O(v)
-    while (HasUnanalyzedEdges()) // O(v)
+
+    // Iterations outer loop: O(v), better: O(min(v,e))
+    // Runtime outer loop: O(v*e*())
+    while (HasUnanalyzedEdges()) // Check: O(e)
     {
-		this->SortVertexesByDegree();
-        for (Edge e : this->GetEdgesOfVertex(_vertex[0])) // O(e)
+		    this->SortVertexesByDegree(); // O(v log v) in O(e*(log(e)+v))?
+        // Iterations inner loop: O(e)
+        // runtime per inner loop: O(log(e)+v)
+        // runtime inner loop: O(e*(log(e)+v))
+        for (Edge e : this->GetEdgesOfVertex(_vertex[0]))
         {
             if (this->EdgeAnalyzed()[e] != true) // O(log(e))
             {
@@ -38,7 +44,7 @@ void Graph::CalculateVertexes()
                 this->SetEdgeAnalyzed(e); // O(log(e))
             }
         }
-		_vertex.erase(_vertex.begin());
+		    _vertex.erase(_vertex.begin());
     } // O(v * log(v)) + O(v) + (O(v) * O(e) * O(log(e)) * (O(v) + O(log(e))))
 	// O(v * e * log(e) * (v + log(e))
 }
