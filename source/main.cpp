@@ -2,8 +2,11 @@
 Projektarbeit von Sidney Kuyateh, Marcel Nowak, Thomas Schäberle und Steffen Walter
 */
 #include <iostream>
+#include <chrono>
+#include <iomanip>
 #include "main.hpp"
 #include "graph.hpp"
+
 
 int main()
 {
@@ -20,14 +23,31 @@ int main()
     /*Make an object with the given data*/
     Graph graphB(vertexB, edgesB);
 
+    /*Start time measurement for part A*/
+    auto start = std::chrono::high_resolution_clock::now();
     /*Calculate vertexes needed to reach all given vertexes (for example A)*/
     graphA.CalculateVertexes();
+    /*End time measurement for part A*/
+    auto finish = std::chrono::high_resolution_clock::now();
     /*Print the calculated list of vertexes*/
     graphA.PrintVertexList();
+    /*Calculate elapsed time*/
+    std::chrono::duration<double> elapsed = finish - start;
+    /*Output of the runtime*/
+    std::cout << "    Elapsed time: " << elapsed.count() << " s\n";
+
+    /*Start time measurement for part B*/
+    start = std::chrono::high_resolution_clock::now();
     /*Calculate vertexes needed to reach all given vertexes (for example B)*/
     graphB.CalculateVertexes();
+    /*End time measurement for part B*/
+    finish = std::chrono::high_resolution_clock::now();
     /*Print the calculated list of vertexes*/
     graphB.PrintVertexList();
+    /*Calculate elapsed time*/
+    elapsed = finish - start;
+    /*Output of the runtime*/
+    std::cout << "    Elapsed time: " << elapsed.count() << " s\n";
 
     return 0;
 }
