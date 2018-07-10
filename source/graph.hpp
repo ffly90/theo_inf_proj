@@ -18,7 +18,6 @@ public:
     void printedges();
 private:
     std::vector<Edge> _edges;
-	std::vector<bool> _analyzed;
     std::vector<int> _vertex;
     std::vector<int> _vertexlist;
 };
