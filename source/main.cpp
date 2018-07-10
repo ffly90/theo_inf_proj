@@ -34,7 +34,7 @@ int main()
     /*Calculate elapsed time*/
     std::chrono::duration<double> elapsed = finish - start;
     /*Output of the runtime*/
-    std::cout << "    Elapsed time: " << elapsed.count() << " s\n";
+    std::cout << "    Elapsed time: " << elapsed.count() * 1000 << " ms\n";
 
     /*Start time measurement for part B*/
     start = std::chrono::high_resolution_clock::now();
@@ -47,7 +47,7 @@ int main()
     /*Calculate elapsed time*/
     elapsed = finish - start;
     /*Output of the runtime*/
-    std::cout << "    Elapsed time: " << elapsed.count() << " s\n";
+    std::cout << "    Elapsed time: " << elapsed.count() * 1000 << " ms\n";
 
     return 0;
 }
