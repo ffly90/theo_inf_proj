@@ -4,7 +4,6 @@ Projektarbeit von Sidney Kuyateh, Marcel Nowak, Thomas Schäberle und Steffen Wa
 #include "graph.hpp"
 #include <iostream>
 #include <algorithm>
-#include <string>
 
 
 //Definition of the constructor of the class Graph
@@ -67,17 +66,6 @@ void Graph::PrintVertexList()
 		std::cout << ", ";
 	}
 	std::cout << ")" << std::endl;
-}
-
-// Prints the edges. Complexity: O(e)
-void Graph::printedges()
-{
-	std::cout << "Edges: ";
-	for (size_t i = 0; i < _edges.size(); i++)
-	{
-		std::cout << "(" << _edges[i].x << "," << _edges[i].y << ")" << " ";
-	}
-	std::cout << std::endl;
 }
 
 // Prints vertexes. Complexity: O(v)

@@ -3,7 +3,6 @@ Projektarbeit von Sidney Kuyateh, Marcel Nowak, Thomas Schäberle und Steffen Wa
 */
 #include <iostream>
 #include <chrono>
-#include <iomanip>
 #include "main.hpp"
 #include "graph.hpp"
 
@@ -26,7 +25,7 @@ int main()
     /*Print vertexlist before analyzing*/
     graphA.printvertex(); // Complexity: O(v)
     /*Start time measurement for part A*/
-    auto start = std::chrono::high_resolution_clock::now();
+	auto start = std::chrono::high_resolution_clock::now();
     /*Calculate vertexes needed to reach all given vertexes (for example A)*/
     graphA.CalculateVertexes();
     /*End time measurement for part A*/
@@ -36,7 +35,7 @@ int main()
     /*Calculate elapsed time*/
     std::chrono::duration<double> elapsed = finish - start;
     /*Output of the runtime*/
-    std::cout << "    Elapsed time: " << elapsed.count() * 1000 << " ms\n";
+    std::cout << "    Elapsed time: " << elapsed.count() * 1000000 << " us\n";
 
     /*Print vertexlist before analyzing*/
     graphB.printvertex(); // Complexity: O(v)
@@ -51,7 +50,7 @@ int main()
     /*Calculate elapsed time*/
     elapsed = finish - start;
     /*Output of the runtime*/
-    std::cout << "    Elapsed time: " << elapsed.count() * 1000 << " ms\n";
+    std::cout << "    Elapsed time: " << elapsed.count() * 1000000 << " us\n";
 
     return 0;
 }
