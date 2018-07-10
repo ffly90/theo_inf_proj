@@ -9,7 +9,7 @@ CC := clang++
 INC_DIRS := $(shell find $(SRC_DIRS) -type d)
 INC_FLAGS := $(addprefix -I,$(INC_DIRS))
 
-CPPFLAGS ?= $(INC_FLAGS) -MMD -MP -std=c++11 -g -Wall -Wextra -pedantic -Werror -O3 
+CPPFLAGS ?= $(INC_FLAGS) -MMD -MP -std=c++11 -g -Wall -Wextra -pedantic -Werror -Ofast 
 
 $(TARGET): $(OBJS)
 	$(CC) $(LDFLAGS) $(OBJS) -o $@ $(LOADLIBES) $(LDLIBS)
