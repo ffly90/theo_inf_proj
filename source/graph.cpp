@@ -30,11 +30,11 @@ void Graph::CalculateVertexes()
 		}); // O(v * e)
 		int max_vertex = *max_vertex_it;
 
-		int length = _edges.size();
+		size_t length = _edges.size();
 		bool alreadySet = false;
 		
 		// for-loop: O(e^2)
-		for (int a = 0; a < length; a++) // Iterations: O(e)
+		for (size_t a = 0; a < length; a++) // Iterations: O(e)
 		{
 			if (_edges[a].x == max_vertex || _edges[a].y == max_vertex) // O(1)
 			{
@@ -58,7 +58,7 @@ void Graph::CalculateVertexes()
 void Graph::PrintVertexList()
 {
 	std::cout << "List of Vertexes: (";
-	for (unsigned int i = 0; i < _vertexlist.size(); i++)
+	for (size_t i = 0; i < _vertexlist.size(); i++)
 	{
 		std::cout << _vertexlist[i];
 		if (i == _vertexlist.size() - 1)
@@ -74,7 +74,7 @@ void Graph::PrintVertexList()
 void Graph::printedges()
 {
 	std::cout << "Edges: ";
-	for (int i = 0; i < _edges.size(); i++)
+	for (size_t i = 0; i < _edges.size(); i++)
 	{
 		std::cout << "(" << _edges[i].x << "," << _edges[i].y << "," << _analyzed[i] << ")" << " ";
 	}
@@ -85,7 +85,7 @@ void Graph::printedges()
 void Graph::printvertex()
 {
 	std::cout << "Vertex: (";
-	for (unsigned int i = 0; i < _vertex.size(); i++)
+	for (size_t i = 0; i < _vertex.size(); i++)
 	{
 		std::cout << _vertex[i];
 		if (i == _vertex.size() - 1)
