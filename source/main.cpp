@@ -23,6 +23,8 @@ int main()
     /*Make an object with the given data*/
     Graph graphB(vertexB, edgesB);
 
+    /*Print vertexlist before analyzing*/
+    graphA.printvertex(); // Complexity: O(v)
     /*Start time measurement for part A*/
     auto start = std::chrono::high_resolution_clock::now();
     /*Calculate vertexes needed to reach all given vertexes (for example A)*/
@@ -36,6 +38,8 @@ int main()
     /*Output of the runtime*/
     std::cout << "    Elapsed time: " << elapsed.count() * 1000 << " ms\n";
 
+    /*Print vertexlist before analyzing*/
+    graphB.printvertex(); // Complexity: O(v)
     /*Start time measurement for part B*/
     start = std::chrono::high_resolution_clock::now();
     /*Calculate vertexes needed to reach all given vertexes (for example B)*/

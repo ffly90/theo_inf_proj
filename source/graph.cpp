@@ -20,7 +20,6 @@ Graph::Graph(std::vector<int> vertex_, std::vector<Edge> edges_) :
 void Graph::CalculateVertexes()
 {
 	_vertexlist.reserve(_vertex.size()); // O(v)
-	this->printvertex(); // Complexity: O(v)
 
 	// while-loop: O(e * ((v * e) + e^2))
 	while (_edges.size() > 0) // Check: O(1) // Iterations: O(e)
@@ -32,7 +31,7 @@ void Graph::CalculateVertexes()
 
 		size_t length = _edges.size();
 		bool alreadySet = false;
-		
+
 		// for-loop: O(e^2)
 		for (size_t a = 0; a < length; a++) // Iterations: O(e)
 		{
