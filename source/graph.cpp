@@ -8,45 +8,47 @@ Projektarbeit von Sidney Kuyateh, Marcel Nowak, Thomas Schäberle und Steffen Wa
 
 
 //Definition of the constructor of the class Graph
-//	Complexity: O(e)
+//	Complexity: O(1)
 Graph::Graph(std::vector<int> vertex_, std::vector<Edge> edges_) :
-    _edges(edges_), _vertex(vertex_)
+	_edges(edges_), _vertex(vertex_)
 {
-    for (Edge e : edges_)
-    {
-        _edgeAnalyzed.emplace(e, 0);
-    }
 }
 /*Definition of the function that calculates the list of needed vertexes.
 	In this case by sorting the list of vertexes by their degree and then
 	analizing the vertexes from the beginning using the greedy algorithm*/
+// Complexity: O(v + e * ((v * e) + e^2))
 void Graph::CalculateVertexes()
 {
-    this->SortVertexesByDegree(); // Complexity: O(v * log(v))
-    this->printvertex(); // Complexity: O(v)
+	_vertexlist.reserve(_vertex.size()); // O(v)
+	this->printvertex(); // Complexity: O(v)
 
-    // Iterations outer loop: O(v), better: O(min(v,e))
-    // Runtime outer loop: O(v*e*())
-    while (HasUnanalyzedEdges()) // Check: O(e)
-    {
-		    this->SortVertexesByDegree(); // O(v log v) in O(e*(log(e)+v))?
-        // Iterations inner loop: O(e)
-        // runtime per inner loop: O(log(e)+v)
-        // runtime inner loop: O(e*(log(e)+v))
-        for (Edge e : this->GetEdgesOfVertex(_vertex[0]))
-        {
-            if (this->EdgeAnalyzed()[e] != true) // O(log(e))
-            {
-                if (!(ListContains(_vertexlist, _vertex[0]))) // O(v)
-                {
-                    _vertexlist.insert(_vertexlist.end(), _vertex[0]); // O(1)
-                }
-                this->SetEdgeAnalyzed(e); // O(log(e))
-            }
-        }
-		    _vertex.erase(_vertex.begin());
-    } // O(v * log(v)) + O(v) + (O(v) * O(e) * O(log(e)) * (O(v) + O(log(e))))
-	// O(v * e * log(e) * (v + log(e))
+	// while-loop: O(e * ((v * e) + e^2))
+	while (_edges.size() > 0) // Check: O(1) // Iterations: O(e)
+	{
+		std::vector<int>::iterator max_vertex_it = std::max_element(_vertex.begin(), _vertex.end(), [this](int v1, int v2) {
+			return GetEdgeCount(v1) < GetEdgeCount(v2);
+		}); // O(v * e)
+		int max_vertex = *max_vertex_it;
+
+		int length = _edges.size();
+		bool alreadySet = false;
+		
+		// for-loop: O(e^2)
+		for (int a = 0; a < length; a++) // Iterations: O(e)
+		{
+			if (_edges[a].x == max_vertex || _edges[a].y == max_vertex) // O(1)
+			{
+				if (!alreadySet)
+				{
+					_vertexlist.push_back(max_vertex); // O(1)
+					alreadySet = true; // O(1)
+				}
+				_edges.erase(_edges.begin() + a); // O(e)
+				a--;
+				length = _edges.size();
+			}
+		}
+	}
 }
 
 //Defition of the funtion that prints the fields of a vector to standard out.
@@ -55,162 +57,57 @@ void Graph::CalculateVertexes()
 //	Complexity: O(v)
 void Graph::PrintVertexList()
 {
-    std::cout << "List of Vertexes: (";
-    for (unsigned int i = 0; i < _vertexlist.size(); i++)
-    {
-        std::cout << _vertexlist[i];
-        if (i == _vertexlist.size() - 1)
-        {
-            break;
-        }
-        std::cout << ", ";
-    }
-    std::cout << ")" << std::endl;
-}
-
-// Definition of the function that runs a check whether or not an element
-//	(e.g. a vertex) of a given array is identicat to a given value
-//	Complexity: O(n)
-bool Graph::ListContains(std::vector<int> list, int item)
-{
-    for (int listitem : list)
-    {
-        if (listitem == item)
-        {
-            return true;
-        }
-    }
-    return false;
-}
-
-std::vector<int> Graph::Vertexes()
-{
-    return _vertex;
-}
-
-std::map<Edge, bool, EdgeCompare> Graph::EdgeAnalyzed()
-{
-    return _edgeAnalyzed;
+	std::cout << "List of Vertexes: (";
+	for (unsigned int i = 0; i < _vertexlist.size(); i++)
+	{
+		std::cout << _vertexlist[i];
+		if (i == _vertexlist.size() - 1)
+		{
+			break;
+		}
+		std::cout << ", ";
+	}
+	std::cout << ")" << std::endl;
 }
 
 // Prints the edges. Complexity: O(e)
 void Graph::printedges()
 {
-    std::cout << "Edges: ";
-    for (std::pair<Edge, bool> e : _edgeAnalyzed)
-    {
-        std::cout << "(" << e.first.x << "," << e.first.y << "," << e.second << ")" << " ";
-    }
-    std::cout << std::endl;
-}
-
-// Sorts vertexes by degree. Complexity: O(v * log(v))
-void Graph::SortVertexesByDegree()
-{
-    std::sort(_vertex.begin(), _vertex.end(), [this](int a, int b)
-    {
-        return (this->GetUnanalyzedEdgeCount(a) > this->GetUnanalyzedEdgeCount(b));
-    });
+	std::cout << "Edges: ";
+	for (int i = 0; i < _edges.size(); i++)
+	{
+		std::cout << "(" << _edges[i].x << "," << _edges[i].y << "," << _analyzed[i] << ")" << " ";
+	}
+	std::cout << std::endl;
 }
 
 // Prints vertexes. Complexity: O(v)
 void Graph::printvertex()
 {
-    std::cout << "Vertex: (";
-    for (unsigned int i = 0; i < _vertex.size(); i++)
-    {
-        std::cout << _vertex[i];
-        if (i == _vertex.size() - 1)
-        {
-            break;
-        }
-        std::cout << ", ";
-    }
-    std::cout << ")" << std::endl;
+	std::cout << "Vertex: (";
+	for (unsigned int i = 0; i < _vertex.size(); i++)
+	{
+		std::cout << _vertex[i];
+		if (i == _vertex.size() - 1)
+		{
+			break;
+		}
+		std::cout << ", ";
+	}
+	std::cout << ")" << std::endl;
 
 }
 
 // Gets count of Edges at a vertex; Complexity: O(e)
 int Graph::GetEdgeCount(int vertex)
 {
-    int i = 0;
-    for (Edge e : _edges)
-    {
-        if ((e.x == vertex || e.y == vertex) && !(e.x == e.y))
-        {
-            i++;
-        }
-    }
-    return i;
-}
-
-int Graph::GetUnanalyzedEdgeCount(int vertex)
-{
 	int i = 0;
 	for (Edge e : _edges)
 	{
-		if ((e.x == vertex || e.y == vertex) && !(e.x == e.y) && _edgeAnalyzed[e] != true)
+		if ((e.x == vertex || e.y == vertex))
 		{
 			i++;
 		}
 	}
 	return i;
-}
-
-// Get all Edges of a vertex. Complexity: O(e)
-std::vector<Edge> Graph::GetEdgesOfVertex(int vertex)
-{
-    std::vector<Edge> v_edges;
-    for (std::pair<Edge, bool> e : _edgeAnalyzed)
-    {
-        if (e.first.x == vertex || e.first.y == vertex)
-        {
-            v_edges.insert(v_edges.end(), e.first);
-        }
-    }
-    return v_edges;
-}
-
-std::vector<Edge> Graph::GetUnanalyzedEdgesOfVertex(int vertex)
-{
-	std::vector<Edge> v_edges;
-	for (std::pair<Edge, bool> e : _edgeAnalyzed)
-	{
-		if ((e.first.x == vertex || e.first.y == vertex) && e.second == true)
-		{
-			v_edges.insert(v_edges.end(), e.first);
-		}
-	}
-	return v_edges;
-}
-
-// Checks, if a vertex has unanalyzed edges. Complexity: O(e)
-bool Graph::HasUnanalyzedEdges(int vertex)
-{
-    for (std::pair<Edge, bool> e : _edgeAnalyzed)
-    {
-        if ((e.first.x == vertex || e.first.y == vertex) && e.second == false)
-        {
-            return true;
-        }
-    }
-    return false;
-}
-
-bool Graph::HasUnanalyzedEdges()
-{
-	for (std::pair<Edge, bool> e : _edgeAnalyzed)
-	{
-		if (e.second == false)
-		{
-			return true;
-		}
-	}
-	return false;
-}
-
-//Sets a edge as analyzed. Complexity: O(log(e))
-void Graph::SetEdgeAnalyzed(const Edge & e)
-{
-    _edgeAnalyzed[e] = true;
 }
