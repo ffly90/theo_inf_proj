@@ -4,6 +4,7 @@ Projektarbeit von Sidney Kuyateh, Marcel Nowak, Thomas Schäberle und Steffen Wa
 #include "graph.hpp"
 #include <iostream>
 #include <algorithm>
+#include <functional>
 
 
 //Definition of the constructor of the class Graph
@@ -15,7 +16,7 @@ Graph::Graph(std::vector<int> vertex_, std::vector<Edge> edges_) :
 /*Definition of the function that calculates the list of needed vertexes.
 	In this case by sorting the list of vertexes by their degree and then
 	analizing the vertexes from the beginning using the greedy algorithm*/
-// Complexity: O(v + e * ((v * e) + e^2))
+	// Complexity: O(v + e * ((v * e) + e^2))
 void Graph::CalculateVertexes()
 {
 	_vertexlist.reserve(_vertex.size()); // O(v)
@@ -91,10 +92,36 @@ int Graph::GetEdgeCount(int vertex)
 	int i = 0;
 	for (Edge e : _edges)
 	{
-		if ((e.x == vertex || e.y == vertex))
+		if (e.x == vertex || e.y == vertex)
 		{
 			i++;
 		}
 	}
 	return i;
+}
+
+bool Any(std::vector<int> const & list, std::function<bool(int)> predicate)
+{
+	for (int item : list)
+	{
+		if (predicate(item))
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+// Checks if every edge contains one of the vertexes in the solution.
+// Complexity: O(v * e)
+bool Graph::CheckVertexlist(std::vector<Edge> edgelist)
+{
+	for (Edge e : edgelist)
+	{
+		if (!Any(_vertexlist, [e](int v) -> bool { return e.x == v || e.y == v; }))
+		{
+			return false;
+		}
+	}
+	return true;
 }

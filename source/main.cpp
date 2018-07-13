@@ -32,11 +32,11 @@ int main()
     auto finish = std::chrono::high_resolution_clock::now();
     /*Print the calculated list of vertexes*/
     graphA.PrintVertexList();
+	std::cout << "    Verification: " << ((graphA.CheckVertexlist(edgesA) == 1) ? "true" : "false") << std::endl;
     /*Calculate elapsed time*/
     std::chrono::duration<double> elapsed = finish - start;
     /*Output of the runtime*/
-    std::cout << "    Elapsed time: " << elapsed.count() * 1000000 << " us\n";
-
+    std::cout << "    Elapsed time: " << elapsed.count() * 1000000 << " us\n" << std::endl;
     /*Print vertexlist before analyzing*/
     graphB.printvertex(); // Complexity: O(v)
     /*Start time measurement for part B*/
@@ -47,6 +47,7 @@ int main()
     finish = std::chrono::high_resolution_clock::now();
     /*Print the calculated list of vertexes*/
     graphB.PrintVertexList();
+	std::cout << "    Verification: " << ((graphB.CheckVertexlist(edgesB) == 1) ? "true" : "false") << std::endl;
     /*Calculate elapsed time*/
     elapsed = finish - start;
     /*Output of the runtime*/

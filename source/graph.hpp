@@ -15,7 +15,7 @@ public:
     void PrintVertexList();
     void printvertex();
     int GetEdgeCount(int vertex);
-    void printedges();
+	bool CheckVertexlist(std::vector<Edge> edgelist);
 private:
     std::vector<Edge> _edges;
     std::vector<int> _vertex;
