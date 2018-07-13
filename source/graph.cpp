@@ -100,20 +100,37 @@ int Graph::GetEdgeCount(int vertex)
 	return i;
 }
 
+bool Any(std::vector<int> const & list, std::function<bool(int)> predicate)
+{
+	for (int item : list)
+	{
+		if (predicate(item))
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
 // Checks if every edge contains one of the vertexes in the solution.
 // Complexity: O(v * e)
 bool Graph::CheckVertexlist(std::vector<Edge> edgelist)
 {
 	for (Edge e : edgelist)
 	{
-		for (int v : _vertexlist)
-		{
-			if (e.x == v || e.y == v)
+		if (([e,this]() -> bool {
+			for (int v : _vertexlist)
 			{
-				break;
+				if (e.x == v || e.y == v)
+				{
+					return true;
+				}
 			}
-		}
+			return false;
+		})() == false)
+		{
 		return false;
+		}
 	}
 	return true;
 }
