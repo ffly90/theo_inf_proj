@@ -7,8 +7,8 @@ Projektarbeit von Sidney Kuyateh, Marcel Nowak, Thomas Schäberle und Steffen Wa
 
 struct Edge
 {
-    int x;
-    int y;
+	size_t x;
+	size_t y;
 };
 
 struct EdgeCompare

@@ -10,15 +10,15 @@ Projektarbeit von Sidney Kuyateh, Marcel Nowak, Thomas Schäberle und Steffen Wa
 class Graph
 {
 public:
-    Graph(std::vector<int> vertex_, std::vector<Edge> edges_);
+    Graph(std::vector<size_t> vertex_, std::vector<Edge> edges_);
     void CalculateVertexes();
     void PrintVertexList();
     void printvertex();
-    int GetEdgeCount(int vertex);
+    int GetEdgeCount(size_t vertex);
 	bool CheckVertexlist(std::vector<Edge> edgelist);
 private:
     std::vector<Edge> _edges;
-    std::vector<int> _vertex;
-    std::vector<int> _vertexlist;
+    std::vector<size_t> _vertex;
+    std::vector<size_t> _vertexlist;
 };
 #endif //GRAPH_HPP
